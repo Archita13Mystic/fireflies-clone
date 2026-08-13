@@ -7,23 +7,25 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+      },
       colors: {
-        fireflies: {
-          purple: '#7C3AED',
-          purpleLight: '#F3E8FF',
-          purpleHover: '#6D28D9',
-          pink: '#FDF2F8',
-          pinkBorder: '#FBCFE8',
-          green: '#ECFDF5',
-          greenBorder: '#A7F3D0',
-          greenBtn: '#D1FAE5',
-          greenText: '#065F46',
-          slateBg: '#F8FAFC',
-          border: '#E2E8F0',
-          textDark: '#0F172A',
-          textMuted: '#64748B'
-        }
-      }
+        // Fireflies dark theme palette
+        'ff-bg': '#0f0f13',
+        'ff-sidebar': '#16161e',
+        'ff-card': '#1e1e2a',
+        'ff-purple': '#7c5cfc',
+        'ff-blue': '#5c9eff',
+        'ff-border': '#2a2a3a',
+        'ff-muted': '#9090a0',
+        'ff-success': '#22c55e',
+        'ff-warning': '#f59e0b',
+        'ff-highlight': '#fbbf24',
+      },
+      borderWidth: {
+        '3': '3px',
+      },
     },
   },
   plugins: [],
