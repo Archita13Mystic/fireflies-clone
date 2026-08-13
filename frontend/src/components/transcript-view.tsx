@@ -115,7 +115,7 @@ export const TranscriptView: React.FC<TranscriptViewProps> = ({
             return (
               <div
                 key={item.id}
-                ref={(el) => (itemRefs.current[item.id] = el)}
+                ref={(el) => { itemRefs.current[item.id] = el; }}
                 onClick={() => onSeek(item.start_time)}
                 className={`p-3.5 rounded-xl border transition-all cursor-pointer group relative ${
                   isActive

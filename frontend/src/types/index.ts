@@ -1,12 +1,12 @@
 export interface Transcript {
   id: number;
   meeting_id: number;
-  speaker_name: str;
-  speaker_avatar?: str;
+  speaker_name: string;
+  speaker_avatar?: string;
   start_time: number;
   end_time: number;
-  text: str;
-  sentiment?: str;
+  text: string;
+  sentiment?: string;
 }
 
 export interface Chapter {
