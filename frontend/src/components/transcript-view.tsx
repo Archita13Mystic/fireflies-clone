@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
-import { Search, Play, Bookmark, Copy, Check, Filter } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { Search, Play, Copy, Check } from 'lucide-react';
 import { Transcript } from '../types';
 
 interface TranscriptViewProps {
@@ -27,17 +27,17 @@ export const TranscriptView: React.FC<TranscriptViewProps> = ({
     return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
   };
 
-  // Get unique speakers
   const speakers = ['All', ...Array.from(new Set(transcripts.map((t) => t.speaker_name)))];
 
-  // Filter transcripts
   const filteredTranscripts = transcripts.filter((t) => {
     const matchesSpeaker = selectedSpeaker === 'All' || t.speaker_name === selectedSpeaker;
-    const matchesSearch = !searchTerm || t.text.toLowerCase().includes(searchTerm.toLowerCase()) || t.speaker_name.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch =
+      !searchTerm ||
+      t.text.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      t.speaker_name.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesSpeaker && matchesSearch;
   });
 
-  // Highlight matches function
   const renderHighlightedText = (text: string, highlight: string) => {
     if (!highlight.trim()) return text;
     const parts = text.split(new RegExp(`(${highlight})`, 'gi'));
@@ -45,7 +45,7 @@ export const TranscriptView: React.FC<TranscriptViewProps> = ({
       <>
         {parts.map((part, i) =>
           part.toLowerCase() === highlight.toLowerCase() ? (
-            <mark key={i} className="bg-yellow-500/30 text-yellow-300 px-1 rounded border border-yellow-500/50">
+            <mark key={i} className="bg-yellow-200 text-yellow-900 px-1 rounded border border-yellow-300">
               {part}
             </mark>
           ) : (
@@ -63,13 +63,13 @@ export const TranscriptView: React.FC<TranscriptViewProps> = ({
   };
 
   return (
-    <div className="bg-[#131B2E] border border-[#212E4A] rounded-2xl flex flex-col h-full overflow-hidden shadow-xl">
-      {/* Transcript Header & Filters */}
-      <div className="p-4 border-b border-[#212E4A] flex flex-wrap items-center justify-between gap-3 bg-[#0D1322]/50">
+    <div className="bg-white border border-slate-200 rounded-2xl flex flex-col h-full overflow-hidden shadow-sm">
+      {/* Header & Filter Search */}
+      <div className="p-4 border-b border-slate-200 flex flex-wrap items-center justify-between gap-3 bg-slate-50">
         <div className="flex items-center gap-2">
-          <h2 className="font-semibold text-sm text-white flex items-center gap-2">
+          <h2 className="font-semibold text-sm text-slate-800 flex items-center gap-2">
             <span>Transcript</span>
-            <span className="px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-400 text-xs font-mono font-bold">
+            <span className="px-2 py-0.5 rounded-full bg-purple-100 text-purple-700 text-xs font-mono font-bold">
               {filteredTranscripts.length}
             </span>
           </h2>
@@ -82,17 +82,16 @@ export const TranscriptView: React.FC<TranscriptViewProps> = ({
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Search in transcript..."
-              className="w-full bg-[#0D1322] border border-[#212E4A] rounded-xl pl-9 pr-3 py-1.5 text-xs text-slate-200 placeholder-slate-400 focus:outline-none focus:border-indigo-500"
+              placeholder="Search transcript..."
+              className="w-full bg-white border border-slate-200 rounded-xl pl-9 pr-3 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-purple-500"
             />
           </div>
         </div>
 
-        {/* Speaker filter dropdown */}
         <select
           value={selectedSpeaker}
           onChange={(e) => setSelectedSpeaker(e.target.value)}
-          className="bg-[#0D1322] border border-[#212E4A] rounded-xl px-2.5 py-1.5 text-xs text-slate-300 focus:outline-none focus:border-indigo-500"
+          className="bg-white border border-slate-200 rounded-xl px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:border-purple-500"
         >
           {speakers.map((spk) => (
             <option key={spk} value={spk}>
@@ -102,11 +101,11 @@ export const TranscriptView: React.FC<TranscriptViewProps> = ({
         </select>
       </div>
 
-      {/* Transcript Items Scroll View */}
+      {/* Transcript Items Scroll List */}
       <div className="flex-1 overflow-y-auto p-4 space-y-3">
         {filteredTranscripts.length === 0 ? (
-          <div className="text-center py-12 text-slate-400 text-xs">
-            No matching transcript segments found.
+          <div className="text-center py-12 text-slate-500 text-xs">
+            No matching transcript lines found.
           </div>
         ) : (
           filteredTranscripts.map((item) => {
@@ -119,21 +118,20 @@ export const TranscriptView: React.FC<TranscriptViewProps> = ({
                 onClick={() => onSeek(item.start_time)}
                 className={`p-3.5 rounded-xl border transition-all cursor-pointer group relative ${
                   isActive
-                    ? 'bg-indigo-600/15 border-indigo-500/50 shadow-md shadow-indigo-500/10'
-                    : 'bg-[#0D1322]/40 border-[#212E4A]/60 hover:bg-[#1B2640]/50 hover:border-slate-700'
+                    ? 'bg-purple-50 border-purple-300 shadow-sm'
+                    : 'bg-white border-slate-200 hover:bg-slate-50'
                 }`}
               >
-                {/* Header: Avatar, Speaker Name, Timestamp */}
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2.5">
                     <div
                       className="w-6 h-6 rounded-full flex items-center justify-center font-bold text-[10px] text-white shadow-sm"
-                      style={{ backgroundColor: item.speaker_avatar || '#6366F1' }}
+                      style={{ backgroundColor: item.speaker_avatar || '#7C3AED' }}
                     >
                       {item.speaker_name.split(' ').map((n) => n[0]).join('')}
                     </div>
 
-                    <span className="font-semibold text-xs text-white">
+                    <span className="font-semibold text-xs text-slate-900">
                       {renderHighlightedText(item.speaker_name, searchTerm)}
                     </span>
                   </div>
@@ -144,7 +142,7 @@ export const TranscriptView: React.FC<TranscriptViewProps> = ({
                         e.stopPropagation();
                         onSeek(item.start_time);
                       }}
-                      className="flex items-center gap-1 text-[11px] font-mono text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-2 py-0.5 rounded-md hover:bg-indigo-500/20 transition-colors"
+                      className="flex items-center gap-1 text-[11px] font-mono text-purple-700 bg-purple-100 border border-purple-200 px-2 py-0.5 rounded-md hover:bg-purple-200 transition-colors"
                     >
                       <Play className="w-2.5 h-2.5 fill-current" />
                       <span>{formatTimestamp(item.start_time)}</span>
@@ -155,16 +153,15 @@ export const TranscriptView: React.FC<TranscriptViewProps> = ({
                         e.stopPropagation();
                         handleCopy(item.id, item.text);
                       }}
-                      className="text-slate-500 hover:text-slate-300 opacity-0 group-hover:opacity-100 transition-opacity p-1"
+                      className="text-slate-400 hover:text-slate-600 opacity-0 group-hover:opacity-100 transition-opacity p-1"
                       title="Copy text"
                     >
-                      {copiedId === item.id ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                      {copiedId === item.id ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
                     </button>
                   </div>
                 </div>
 
-                {/* Content text */}
-                <p className="text-xs text-slate-300 leading-relaxed font-normal pl-8">
+                <p className="text-xs text-slate-700 leading-relaxed pl-8">
                   {renderHighlightedText(item.text, searchTerm)}
                 </p>
               </div>

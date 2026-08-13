@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { X, Upload, FileText, Plus, Sparkles } from 'lucide-react';
+import { X, Upload, Plus, Sparkles } from 'lucide-react';
 import { api } from '../lib/api';
 
 interface UploadModalProps {
@@ -63,34 +63,31 @@ export const UploadModal: React.FC<UploadModalProps> = ({ isOpen, onClose, onSuc
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fade-in">
-      <div className="bg-[#131B2E] border border-[#212E4A] w-full max-w-lg rounded-2xl p-6 shadow-2xl relative">
-        {/* Close Button */}
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fade-in">
+      <div className="bg-white border border-slate-200 w-full max-w-lg rounded-2xl p-6 shadow-2xl relative">
         <button
           onClick={onClose}
-          className="absolute right-4 top-4 text-slate-400 hover:text-white p-1 rounded-lg hover:bg-[#1B2640]"
+          className="absolute right-4 top-4 text-slate-400 hover:text-slate-600 p-1 rounded-lg"
         >
           <X className="w-5 h-5" />
         </button>
 
-        {/* Modal Header */}
         <div className="flex items-center gap-2 mb-4">
-          <div className="w-8 h-8 rounded-xl bg-indigo-600/20 border border-indigo-500/40 flex items-center justify-center text-indigo-400">
+          <div className="w-8 h-8 rounded-xl bg-purple-100 border border-purple-200 flex items-center justify-center text-purple-700">
             <Plus className="w-5 h-5" />
           </div>
           <div>
-            <h2 className="font-bold text-base text-white">Create / Upload Meeting</h2>
-            <p className="text-xs text-slate-400">Add a meeting transcript and auto-generate AI summaries</p>
+            <h2 className="font-bold text-base text-slate-900">Create / Upload Meeting</h2>
+            <p className="text-xs text-slate-500">Add a meeting transcript and auto-generate AI summaries</p>
           </div>
         </div>
 
-        {/* Tabs */}
-        <div className="flex items-center gap-2 p-1 bg-[#0D1322] border border-[#212E4A] rounded-xl mb-4 text-xs font-medium">
+        <div className="flex items-center gap-2 p-1 bg-slate-100 border border-slate-200 rounded-xl mb-4 text-xs font-medium">
           <button
             type="button"
             onClick={() => setActiveTab('paste')}
             className={`flex-1 py-1.5 rounded-lg transition-all ${
-              activeTab === 'paste' ? 'bg-indigo-600 text-white font-semibold shadow' : 'text-slate-400 hover:text-slate-200'
+              activeTab === 'paste' ? 'bg-white text-purple-700 font-semibold shadow-sm' : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             Paste Transcript Text
@@ -99,35 +96,35 @@ export const UploadModal: React.FC<UploadModalProps> = ({ isOpen, onClose, onSuc
             type="button"
             onClick={() => setActiveTab('file')}
             className={`flex-1 py-1.5 rounded-lg transition-all ${
-              activeTab === 'file' ? 'bg-indigo-600 text-white font-semibold shadow' : 'text-slate-400 hover:text-slate-200'
+              activeTab === 'file' ? 'bg-white text-purple-700 font-semibold shadow-sm' : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             Upload File (.txt, .vtt, .json)
           </button>
         </div>
 
-        {error && <div className="mb-4 p-3 bg-red-500/10 border border-red-500/30 text-red-400 text-xs rounded-xl">{error}</div>}
+        {error && <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-600 text-xs rounded-xl">{error}</div>}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1">Meeting Title *</label>
+            <label className="block text-xs font-semibold text-slate-700 mb-1">Meeting Title *</label>
             <input
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="e.g. Q3 Sprint Planning Sync"
-              className="w-full bg-[#0D1322] border border-[#212E4A] rounded-xl px-3.5 py-2 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500"
+              className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-purple-500"
               required
             />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">Category</label>
+              <label className="block text-xs font-semibold text-slate-700 mb-1">Category</label>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="w-full bg-[#0D1322] border border-[#212E4A] rounded-xl px-3 py-2 text-xs text-slate-300 focus:outline-none focus:border-indigo-500"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-700 focus:outline-none focus:border-purple-500"
               >
                 <option value="Product">Product</option>
                 <option value="Engineering">Engineering</option>
@@ -139,44 +136,42 @@ export const UploadModal: React.FC<UploadModalProps> = ({ isOpen, onClose, onSuc
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">Participants (comma separated)</label>
+              <label className="block text-xs font-semibold text-slate-700 mb-1">Participants</label>
               <input
                 type="text"
                 value={participantsText}
                 onChange={(e) => setParticipantsText(e.target.value)}
                 placeholder="Archita, Alex, Devin"
-                className="w-full bg-[#0D1322] border border-[#212E4A] rounded-xl px-3 py-2 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-purple-500"
               />
             </div>
           </div>
 
           {activeTab === 'paste' ? (
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">Transcript Content</label>
+              <label className="block text-xs font-semibold text-slate-700 mb-1">Transcript Content</label>
               <textarea
                 value={rawText}
                 onChange={(e) => setRawText(e.target.value)}
-                placeholder="Paste transcript here... e.g.
-Archita Sharma: Welcome to the meeting!
-Alex Rivera: Let's discuss our upcoming release timeline."
-                className="w-full h-32 bg-[#0D1322] border border-[#212E4A] rounded-xl p-3 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500 font-mono"
+                placeholder="Paste transcript text here..."
+                className="w-full h-32 bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-purple-500 font-mono"
               />
             </div>
           ) : (
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1">Select Transcript File</label>
-              <div className="border-2 border-dashed border-[#212E4A] hover:border-indigo-500/50 rounded-xl p-6 text-center bg-[#0D1322]/50 cursor-pointer relative">
+              <label className="block text-xs font-semibold text-slate-700 mb-1">Select File</label>
+              <div className="border-2 border-dashed border-slate-200 hover:border-purple-300 rounded-xl p-6 text-center bg-slate-50 cursor-pointer relative">
                 <input
                   type="file"
                   accept=".txt,.vtt,.json"
                   onChange={(e) => setSelectedFile(e.target.files?.[0] || null)}
                   className="absolute inset-0 opacity-0 cursor-pointer"
                 />
-                <Upload className="w-8 h-8 text-indigo-400 mx-auto mb-2" />
-                <p className="text-xs font-medium text-slate-200">
+                <Upload className="w-8 h-8 text-purple-600 mx-auto mb-2" />
+                <p className="text-xs font-medium text-slate-800">
                   {selectedFile ? selectedFile.name : 'Click or drop transcript file here'}
                 </p>
-                <p className="text-[10px] text-slate-400 mt-1">Supports VTT, JSON array, or plain text</p>
+                <p className="text-[10px] text-slate-400 mt-1">Supports VTT, JSON, or plain text</p>
               </div>
             </div>
           )}
@@ -185,17 +180,17 @@ Alex Rivera: Let's discuss our upcoming release timeline."
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-xs text-slate-400 hover:text-slate-200"
+              className="px-4 py-2 text-xs text-slate-500 hover:text-slate-700"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="py-2 px-5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs flex items-center gap-1.5 shadow-md shadow-indigo-600/30"
+              className="py-2 px-5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-medium text-xs flex items-center gap-1.5 shadow-sm"
             >
               <Sparkles className="w-3.5 h-3.5" />
-              <span>{loading ? 'Processing...' : 'Process & Save Meeting'}</span>
+              <span>{loading ? 'Processing...' : 'Process Meeting'}</span>
             </button>
           </div>
         </form>
