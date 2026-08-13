@@ -4,6 +4,14 @@ A modern, full-stack meeting assistant web application inspired by **Fireflies.a
 
 ---
 
+## 🌐 Live Demo & Deployment
+
+- 🖥️ **Live Web Application**: [https://fireflies-frontend-iirg.onrender.com](https://fireflies-frontend-iirg.onrender.com)
+- ⚙️ **Backend API & Swagger Docs**: [https://fireflies-backend-fxo9.onrender.com/docs](https://fireflies-backend-fxo9.onrender.com/docs)
+- 🐙 **GitHub Repository**: [https://github.com/Archita13Mystic/fireflies-clone](https://github.com/Archita13Mystic/fireflies-clone)
+
+---
+
 ## ✨ Features
 
 - **Interactive Meeting Workspace**:
@@ -65,7 +73,7 @@ A modern, full-stack meeting assistant web application inspired by **Fireflies.a
 ┌─────────────────────────────────────────────────────────┐
 │                   SQLite Database                       │
 │       meetings  •  transcripts  •  summaries  •  tasks  │
-└─────────────────────────────────────────────────────────┘
+└────────────────────────────┌────────────────────────────┘
 ```
 
 ---
@@ -187,5 +195,5 @@ This repository includes a [`render.yaml`](./render.yaml) Blueprint for automate
 2. Log in to [dashboard.render.com](https://dashboard.render.com/) → **New +** → **Blueprint**.
 3. Select this repository and click **Apply**.
 4. Render will deploy:
-   - **`fireflies-backend`**: Python web service with a persistent SQLite disk mounted at `/data`.
+   - **`fireflies-backend`**: Python web service with SQLite database.
    - **`fireflies-frontend`**: Next.js Node web service connected to the backend API.
