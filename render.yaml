@@ -1,5 +1,5 @@
 services:
-  # 1. FastAPI Python Backend Service
+  # 1. FastAPI Python Backend Web Service
   - type: web
     name: fireflies-clone-backend
     env: python
@@ -12,16 +12,13 @@ services:
       - key: DATABASE_URL
         value: sqlite:///./fireflies.db
 
-  # 2. Next.js Frontend Web Service
-  - type: web
+  # 2. Next.js Static Website Service (Free on Render)
+  - type: static
     name: fireflies-clone-frontend
-    env: node
     region: singapore
     buildCommand: cd frontend && npm install && npm run build
-    startCommand: cd frontend && npm start
+    staticPublishPath: ./frontend/out
     envVars:
-      - key: NODE_VERSION
-        value: "18.17.0"
       - key: NEXT_PUBLIC_API_URL
         fromService:
           type: web
