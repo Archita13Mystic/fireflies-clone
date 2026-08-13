@@ -1,0 +1,29 @@
+services:
+  # 1. FastAPI Python Backend Service
+  - type: web
+    name: fireflies-clone-backend
+    env: python
+    region: singapore # Or Oregon/Frankfurt
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT --app-dir backend
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10 font-bold
+      - key: DATABASE_URL
+        value: sqlite:///./fireflies.db
+
+  # 2. Next.js Frontend Web Service
+  - type: web
+    name: fireflies-clone-frontend
+    env: node
+    region: singapore
+    buildCommand: cd frontend && npm install && npm run build
+    startCommand: cd frontend && npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 18.17.0
+      - key: NEXT_PUBLIC_API_URL
+        fromService:
+          type: web
+          name: fireflies-clone-backend
+          property: url
