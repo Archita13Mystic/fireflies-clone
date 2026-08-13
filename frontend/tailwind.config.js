@@ -9,19 +9,19 @@ module.exports = {
     extend: {
       colors: {
         fireflies: {
-          dark: '#0B0F17',
-          card: '#131B2E',
-          cardHover: '#1B2640',
-          sidebar: '#0D1322',
-          border: '#212E4A',
-          primary: '#6366F1',
-          primaryHover: '#4F46E5',
-          accent: '#8B5CF6',
-          purple: '#A855F7',
-          pink: '#EC4899',
-          green: '#10B981',
-          textMuted: '#94A3B8',
-          textBright: '#F8FAFC'
+          purple: '#7C3AED',
+          purpleLight: '#F3E8FF',
+          purpleHover: '#6D28D9',
+          pink: '#FDF2F8',
+          pinkBorder: '#FBCFE8',
+          green: '#ECFDF5',
+          greenBorder: '#A7F3D0',
+          greenBtn: '#D1FAE5',
+          greenText: '#065F46',
+          slateBg: '#F8FAFC',
+          border: '#E2E8F0',
+          textDark: '#0F172A',
+          textMuted: '#64748B'
         }
       }
     },

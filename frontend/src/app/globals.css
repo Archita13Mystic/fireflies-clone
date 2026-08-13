@@ -10,8 +10,8 @@
 
 body {
   font-family: var(--font-inter);
-  background-color: #0B0F17;
-  color: #F8FAFC;
+  background-color: #F8FAFC;
+  color: #0F172A;
   overflow-x: hidden;
 }
 
@@ -22,51 +22,35 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #0D1322;
+  background: #F1F5F9;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #212E4A;
+  background: #CBD5E1;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #3B82F6;
+  background: #7C3AED;
 }
 
-/* Glassmorphism utilities */
-.glass-panel {
-  background: rgba(19, 27, 46, 0.75);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(33, 46, 74, 0.8);
+/* Fireflies Gradient Hero */
+.hero-gradient {
+  background: linear-gradient(135deg, #E0F2FE 0%, #FCE7F3 50%, #FEF3C7 100%);
 }
 
-.glass-card {
-  background: rgba(19, 27, 46, 0.6);
-  border: 1px solid rgba(33, 46, 74, 0.6);
-  transition: all 0.2s ease-in-out;
+.card-shadow {
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.03);
 }
 
-.glass-card:hover {
-  background: rgba(27, 38, 64, 0.8);
-  border-color: rgba(99, 102, 241, 0.5);
+.card-shadow-hover:hover {
+  box-shadow: 0 10px 25px -3px rgba(124, 58, 237, 0.1), 0 4px 10px -2px rgba(124, 58, 237, 0.05);
 }
 
 /* Highlighted match badge */
 mark {
-  background-color: rgba(234, 179, 8, 0.3);
-  color: #FDE047;
+  background-color: #FEF08A;
+  color: #854D0E;
   padding: 2px 4px;
   border-radius: 4px;
-  border: 1px solid rgba(234, 179, 8, 0.5);
-}
-
-/* Pulse animation */
-@keyframes pulse-glow {
-  0%, 100% { opacity: 0.8; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.03); }
-}
-
-.animate-pulse-glow {
-  animation: pulse-glow 3s infinite ease-in-out;
 }
