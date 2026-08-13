@@ -121,9 +121,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenUploadModal }) => {
             <p className="text-[10px] text-slate-400 truncate">archita@fireflies.ai</p>
           </div>
         </div>
-        <button className="text-slate-400 hover:text-white p-1">
+        <Link href="/settings" className="text-slate-400 hover:text-white p-1" title="Settings">
           <Settings className="w-4 h-4" />
-        </button>
+        </Link>
       </div>
     </aside>
   );
